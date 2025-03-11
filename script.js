@@ -1,22 +1,33 @@
-function convertToRoman(num) {
-    if (num <= 0 || num > 100000) return "Invalid input";
-    
-    const romanNumerals = [
-        ["M", 1000], ["CM", 900], ["D", 500], ["CD", 400],
-        ["C", 100], ["XC", 90], ["L", 50], ["XL", 40],
-        ["X", 10], ["IX", 9], ["V", 5], ["IV", 4], ["I", 1]
+function intToRoman(num) {
+    if (num === 0) return ""; // Roman numerals do not have a representation for zero
+
+    const val = [
+        1000, 900, 500, 400,
+        100, 90, 50, 40,
+        10, 9, 5, 4,
+        1
     ];
-    
-    let result = "";
-    for (let [symbol, value] of romanNumerals) {
-        while (num >= value) {
-            result += symbol;
-            num -= value;
+    const syms = [
+        "M", "CM", "D", "CD",
+        "C", "XC", "L", "XL",
+        "X", "IX", "V", "IV",
+        "I"
+    ];
+
+    let romanNumeral = "";
+
+    for (let i = 0; i < val.length; i++) {
+        while (num >= val[i]) {
+            romanNumeral += syms[i];
+            num -= val[i];
         }
     }
-    return result;
+
+    return romanNumeral;
 }
 
-// Example usage
-console.log(convertToRoman(14));  // Output: XIV
-console.log(convertToRoman(798)); // Output: DCCXCVIII
+// Example usage:
+console.log(intToRoman(14));    // Output: XIV
+console.log(intToRoman(798));   // Output: DCCXCVIII
+console.log(intToRoman(3999)); // Output: MMMCMXCIX
+console.log(intToRoman(0));     // Output: (empty string)
